@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改页面</title>
+    {% extends 'login.html' %}
+</head>
+<body>
+{% block context %}
+    <h3 style="text-align:center">员工信息修改</h3>
+    <form method="post" action="{{ url_for('index.edit') }}" style="height:300px">
+        <div class="mb-3">
+      <label class="form-label">age</label>
+      <input type="text" class="form-control" name="age"  placeholder="请输入年龄">
+    </div>
+        <div class="mb-3">
+      <label class="form-label">job</label>
+      <input type="text" class="form-control" name="job" placeholder="请输入职业">
+    </div>
+        <div class="mb-3">
+        <label class="form-label">ID</label>
+        <input type="text" class="form-control" name="ID" placeholder="请输入要修改的ID">
+        </div>
+        <input class="btn btn-primary" type="submit" value="Submit">
+        <script src="{{ url_for('static', filename='/bootstrap5/bootstrap.bundle.min.js') }}"></script>
+        <script src="https://s3.pstatp.com/cdn/expire-1-M/jquery/3.3.1/jquery.min.js"></script>
+    </form>
+{% endblock %}
+</body>
+</html>

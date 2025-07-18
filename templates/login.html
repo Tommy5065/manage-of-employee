@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static' , filename='/bootstrap5/bootstrap.min.css') }}">
+    <style>
+        body{
+            background-color:#288cff
+        }
+        .container{
+            background-color:#ddd;
+            border-radius: 5px;
+            width: 300px;
+            height: 300px;
+            margin:100px auto;
+            border:1px solid #ddd;
+            padding: 25px 10px 10px 10px;
+        }
+        .alert {
+            position: relative;
+            padding: 7px;
+            margin:100px auto;
+            border: 1px solid transparent;
+            color: #004085;
+            background-color: #cce5ff;
+            border-color: #b8daff;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+{% for alert in get_flashed_messages() %}
+    <span class="alert">{{ alert }}</span>
+{% endfor %}
+    {% block context %}
+    <h3 style="text-align:center">用户登录</h3>
+    <form method="post" action="{{ url_for('login.login') }}">
+        <div class="mb-3">
+      <label class="form-label">User Name</label>
+      <input type="text" class="form-control" name="user_name" autocomplete="off" placeholder="输入用户名">
+    </div>
+        <div class="mb-3">
+      <label class="form-label">Password</label>
+      <input type="text" class="form-control" name="password" autocomplete="off" placeholder="输入密码">
+    </div>
+        <input class="btn btn-primary" type="submit" value="Submit">
+        <a class="btn btn-primary" href="{{ url_for('register.register') }}">注册账户</a>
+        <a class="btn btn-primary" href="{{ url_for('login.pwd') }}">忘记密码</a>
+        <script src="{{ url_for('static', filename='/bootstrap5/bootstrap.bundle.min.js') }}"></script>
+        <script src="https://s3.pstatp.com/cdn/expire-1-M/jquery/3.3.1/jquery.min.js"></script>
+    </form>
+    {% endblock %}
+</div>
+
+</body>
+</html>

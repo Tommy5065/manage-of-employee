@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>员工信息管理系统 - Flask学习</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-users"></i> 员工信息管理系统</h1>
+        </header>
+
+        <div class="content">
+            <div class="form-section">
+                <h2 class="section-title"><i class="fas fa-user-edit"></i> 员工信息表单</h2>
+
+                <form id="employeeForm" method="POST" action="{{ url_for('index.add') }}">
+                    {% for alert in get_flashed_messages() %}
+                    <span class="alert">{{ alert }}</span>
+                    {% endfor %}
+
+                    <div class="form-group">
+                        <label>身份证号</label>
+                        <input type="text" name="id_number" required placeholder="请输入员工身份证号">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">姓名</label>
+                        <input type="text" name="name" required placeholder="请输入员工姓名">
+                    </div>
+
+                     <div class="form-group">
+                        <label for="name">年龄</label>
+                        <input type="text" name="age" required placeholder="请输入员工年龄">
+                    </div>
+
+                    <div class="form-group">
+                        <label>性别</label>
+                        <select required name="sex">
+                            <option value="">请选择性别</option>
+                            <option value="Female">Female</option>
+                            <option value="Male">Male</option>
+                        </select>
+                    </div>
+
+                     <div class="form-group">
+                        <label>职业</label>
+                        <input type="text" name="job" required placeholder="请输入员工职业">
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> 保存员工</button>
+                        <button type="button" id="resetBtn" class="btn btn-warning"><i class="fas fa-redo"></i> 重置表单</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="table-section">
+                <h2 class="section-title"><i class="fas fa-list"></i> 员工信息列表</h2>
+
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="输入姓名、职位或部门进行搜索...">
+                    <button class="search-btn"><i class="fas fa-search"></i> 搜索</button>
+                </div>
+
+                <table id="employeeTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>ID_number</th>
+                            <th>姓名</th>
+                            <th>年龄</th>
+                            <th>性别</th>
+                            <th>职业</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for e in employee %}
+                        <tr>
+                            <td>{{ e[0] }}</td>
+                            <td>{{ e[1] }}</td>
+                            <td>{{ e[2] }}</td>
+                            <td>{{ e[3] }}</td>
+                            <td>{{ e[4] }}</td>
+                            <td>{{ e[5] }}</td>
+                            <td class="action-cell">
+                                <a class="action-btn edit-btn" href="{{ url_for('index.edit') }}" target="_blank">编辑</a>
+                                <form method="post", action="{{ url_for('index.delete') }}">
+                                    <input type="hidden" name="id" value="{{ e[0] }}">
+                                    <button class="action-btn delete-btn" type="Submit" ><i class="fas fa-edit"></i> 删除</button>
+                                </form>
+
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <footer>
+            <p>员工信息管理系统 &copy; 2025 |适合Flask后端学习</p>
+        </footer>
+    </div>
+</body>
+</html>
