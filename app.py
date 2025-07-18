@@ -18,7 +18,7 @@ def auth():
         return
     elif request.path == '/register':
         return
-    elif request.path == '/change/password':
+    elif request.path == '/login/change/password':
         return
 
     Session = session.get('user_info')
